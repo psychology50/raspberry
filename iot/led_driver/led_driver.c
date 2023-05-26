@@ -12,7 +12,7 @@
 #define GPIO_BASE (BCM2711_PERI_BASE+0x200000)
 #define GPIO_SIZE 256
 
-// red pin = 17, green = 18, blue = 19
+// red pin = 17, blue = 27, green = 22
 char led_usage = 0;
 static void* led_map;
 volatile unsigned* led;
@@ -31,10 +31,10 @@ static int led_open(struct inode* minode, struct file* mfile)
 	led = (volatile unsigned int*)led_map;
 	*(led + 1) &= ~(0x7 << (3 *  7));
 	*(led + 1) |= (0x1 << (3 * 7));
-	*(led + 1) &= ~(0x7 << (3 * 8));
-	*(led + 1) |= (0x1 << (3 * 8));
-	*(led + 1) &= ~(0x7 << (3 * 9));
-	*(led + 1) |= (0x1 << (3 * 9));
+	*(led + 2) &= ~(0x7 << (3 * 7));
+	*(led + 2) |= (0x1 << (3 * 7));
+	*(led + 2) &= ~(0x7 << (3 * 2));
+	*(led + 2) |= (0x1 << (3 * 2));
 	return 0;
 }
 static int led_release(struct inode* minode, struct file* mfile)
@@ -58,19 +58,19 @@ static int led_write(struct file* mfile, const char* gdata, size_t length, loff_
 	// 1 green 2 yellow 4 red
 	if (tmp_buf == 0x01)
 	{
-		*(led + 10) |= (0x1 << 17);
-		*(led + 10) |= (0x1 << 19);
-		*(led + 7) |= (0x1 << 18);
+		*(led + 10) |= (0x1 << 17); // red
+		*(led + 10) |= (0x1 << 27); //blue
+		*(led + 7) |= (0x1 << 22); //green
 	}
 	else if (tmp_buf == 0x02) {
 		*(led + 7) |= (0x1 << 17);
-		*(led + 7) |= (0x01 << 18);
-		*(led + 10) |= (0x1 << 19);
+		*(led + 7) |= (0x01 << 22);
+		*(led + 10) |= (0x1 << 27);
 	}
 	else if (tmp_buf == 0x04) {
 		*(led + 7) |= (0x1 << 17);
-		*(led + 10) |= (0x1 << 18);
-		*(led + 10) |= (0x1 << 19);
+		*(led + 10) |= (0x1 << 22);
+		*(led + 10) |= (0x1 << 27);
 	}
 	return length;
 }
