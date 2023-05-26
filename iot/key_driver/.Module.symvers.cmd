@@ -1,0 +1,1 @@
+cmd_/root/raspberry/iot/key_driver/Module.symvers :=  sed 's/ko$$/o/'  /root/raspberry/iot/key_driver/modules.order | scripts/mod/modpost -m -a    -o /root/raspberry/iot/key_driver/Module.symvers -e -i Module.symvers -T - 

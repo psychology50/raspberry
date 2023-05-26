@@ -6,11 +6,11 @@
 #include <asm/uaccess.h>
 #include <linux/io.h>
 
-#define SWITCH_MAJOR 240
+#define SWITCH_MAJOR 100
 #define SWITCH_NAME "SWITCH_DRIVER"
+#define BCM2711_PERI_BASE 0xFE000000
 #define GPIO_BASE (BCM2711_PERI_BASE + 0x200000)
 #define GPIO_SIZE 256
-#define GPIO_NUMBER 2
 
 char switch_usage = 0;
 static void *switch_map;
@@ -32,7 +32,8 @@ static int switch_open(struct inode *inode, struct file *file)
     }
 
     switch_gpio = (volatile unsigned int *)switch_map;
-    *(switch_gpio) &= ~(0x7 << (3 * GPIO_NUMBER));
+    *(switch_gpio+1) &= ~(0x7 << (3 * 3));
+	*(switch_gpio+1) |= (0x1 << (3 * 3));
     return 0;
 }
 
@@ -47,7 +48,7 @@ static int switch_release(struct inode *inode, struct file *file)
 static ssize_t switch_read(struct file *file, char *buf, size_t length, loff_t *ofs)
 {
     int value;
-    value = (*(switch_gpio + 13) & (0x1 << GPIO_NUMBER)) ? 1 : 0;
+    value = (*(switch_gpio + 13) & (0x1 << 13)) ? 1 : 0;
 
     if(copy_to_user(buf, &value, sizeof(value)))
         return -EFAULT;
@@ -65,7 +66,7 @@ static struct file_operations switch_fops =
 static int switch_init(void)
 {
     int result;
-    result = register_chrdev(SWITCH_MAJOR, SWITCH_NAME, &switch_fops);
+    result = register_chrdev(100, SWITCH_NAME, &switch_fops);
 
     if(result < 0) {
         printk(KERN_WARNING "Can't get any major\n");

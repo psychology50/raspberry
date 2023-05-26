@@ -9,9 +9,10 @@
 
 #define BUZZER_MAJOR 240
 #define BUZZER_NAME "BUZZER_DRIVER"
+#define BCM2711_PERI_BASE 0xFE000000
 #define GPIO_BASE (BCM2711_PERI_BASE + 0x200000)
 #define GPIO_SIZE 256
-#define GPIO_NUMBER 10
+#define GPIO_NUMBER 23
 
 char buzzer_usage = 0;
 static void *buzzer_map;
@@ -33,8 +34,8 @@ static int buzzer_open(struct inode *inode, struct file *file)
     }
 
     buzzer = (volatile unsigned int *)buzzer_map;
-    *(buzzer + 1) &= ~(0x7 << (3 * GPIO_NUMBER));
-    *(buzzer + 1) |= (0x1 << (3 * GPIO_NUMBER));
+    *(buzzer + 2) &= ~(0x7 << (3 * 3));
+    *(buzzer + 2) |= (0x1 << (3 * 3));
     return 0;
 }
 
@@ -79,4 +80,11 @@ static int buzzer_init(void)
     return 0;
 }
 
-static void buzzer_exit(void)
+static void buzzer_exit(void) {
+	unregister_chrdev(BUZZER_MAJOR, BUZZER_NAME);
+	printk("BUZZER module removed.\n");
+}
+
+module_init(buzzer_init);
+module_exit(buzzer_exit);
+MODULE_LICENSE("GPL");

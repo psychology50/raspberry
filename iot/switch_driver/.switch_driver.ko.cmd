@@ -1,0 +1,1 @@
+cmd_/root/raspberry/iot/switch_driver/switch_driver.ko := ld -r -EL -z noexecstack --build-id=sha1  -T scripts/module.lds -o /root/raspberry/iot/switch_driver/switch_driver.ko /root/raspberry/iot/switch_driver/switch_driver.o /root/raspberry/iot/switch_driver/switch_driver.mod.o;  true

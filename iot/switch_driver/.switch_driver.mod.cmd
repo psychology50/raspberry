@@ -1,0 +1,1 @@
+cmd_/root/raspberry/iot/switch_driver/switch_driver.mod := printf '%s\n'   switch_driver.o | awk '!x[$$0]++ { print("/root/raspberry/iot/switch_driver/"$$0) }' > /root/raspberry/iot/switch_driver/switch_driver.mod

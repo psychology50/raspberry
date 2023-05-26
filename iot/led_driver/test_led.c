@@ -26,9 +26,13 @@ int main(int argc, char **argv)
 		write(fd, &data, sizeof(char));
 		sleep(1);
 
-		data = 4;
+		data = 3;
 		write(fd, &data, sizeof(char));
 		sleep(1);
+
+		data = 10;
+		write(fd, &data, sizeof(char));
+		sleep(3);
 	}
 	close(fd);
 	return 0;
