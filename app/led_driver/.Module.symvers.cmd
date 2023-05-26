@@ -1,0 +1,1 @@
+cmd_/root/raspberry/app/led_driver/Module.symvers :=  sed 's/ko$$/o/'  /root/raspberry/app/led_driver/modules.order | scripts/mod/modpost -m -a    -o /root/raspberry/app/led_driver/Module.symvers -e -i Module.symvers -T - 

@@ -1,0 +1,1 @@
+cmd_/root/raspberry/app/led_driver/led_driver.ko := ld -r -EL -z noexecstack --build-id=sha1  -T scripts/module.lds -o /root/raspberry/app/led_driver/led_driver.ko /root/raspberry/app/led_driver/led_driver.o /root/raspberry/app/led_driver/led_driver.mod.o;  true
