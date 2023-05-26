@@ -15,7 +15,7 @@ int main() {
 	char key;
 	struct pollfd events[2];
 	int retval;
-	key_fd = open(KEY_FILE_NAME, O_RDWD | O_NONBLOCK);
+	key_fd = open(KEY_FILE_NAME, O_RDWR | O_NONBLOCK);
 
 	if (key_fd < 0) {
 		fprintf(stderr, "Can't open %s\n", KEY_FILE_NAME);

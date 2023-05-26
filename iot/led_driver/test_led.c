@@ -22,14 +22,14 @@ int main(int argc, char **argv)
         write(fd, &data, sizeof(char));
         sleep(1);
 
-data = 2;
-write(fd, &data, sizeof(char));
-sleep(1);
+		data = 2;
+		write(fd, &data, sizeof(char));
+		sleep(1);
 
-data = 4;
-write(fd, &data, sizeof(char));
-sleep(1);
-}
-close(fd);
-return 0;
+		data = 4;
+		write(fd, &data, sizeof(char));
+		sleep(1);
+	}
+	close(fd);
+	return 0;
 }

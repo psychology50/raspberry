@@ -2,8 +2,10 @@ MODULE_NAME = led_driver
 APP_NAME = test_led
 KDIR = /lib/modules/`uname -r`/build
 TARGET = arm
+TOOLCHAIN=arm-linux-gnueabihf-
+CC := $(TOOLCHAIN)gcc
 
-obj-m := &(MODULE_NAME).o
+obj-m := $(MODULE_NAME).o
 all: app driver
 driver:
 	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) ARCH=$(TARGET) M=$$PWD modules

@@ -76,10 +76,10 @@ static int led_write(struct file* mfile, const char* gdata, size_t length, loff_
 }
 static struct file_operations led_fops =
 {
-.owner = THIS_MODULE,
-.open = led_open,
-.release = led_release,
-.write = led_write,
+	.owner = THIS_MODULE,
+	.open = led_open,
+	.release = led_release,
+	.write = led_write,
 };
 static int led_init(void)
 {
