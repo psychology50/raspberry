@@ -6,7 +6,7 @@
 
 int main() {
     int buzzer_dev;
-    char state;
+    unsigned int frequency;
 
     // 디바이스 파일을 엽니다.
     buzzer_dev = open(BUZZER_DEVICE, O_WRONLY);
@@ -15,9 +15,15 @@ int main() {
         return 1;
     }
 
-    // 버저를 켭니다.
-    state = 1;
-    if (write(buzzer_dev, &state, sizeof(state)) < 0) {
+    // 주파수 값을 설정합니다.
+    frequency = 1000; // 예시로 1000Hz로 설정
+
+    // 주파수 값을 디바이스에 쓰기 위해 state에 저장합니다.
+    char state[sizeof(frequency)];
+    memcpy(state, &frequency, sizeof(frequency));
+
+    // 디바이스에 주파수 값을 씁니다.
+    if (write(buzzer_dev, state, sizeof(state)) < 0) {
         perror("Failed to write the device");
         return 1;
     }
@@ -25,8 +31,9 @@ int main() {
     sleep(2); // 2초 동안 버저를 울립니다.
 
     // 버저를 끕니다.
-    state = 0;
-    if (write(buzzer_dev, &state, sizeof(state)) < 0) {
+    frequency = 0; // 주파수 값을 0으로 설정하여 끔
+    memcpy(state, &frequency, sizeof(frequency));
+    if (write(buzzer_dev, state, sizeof(state)) < 0) {
         perror("Failed to write the device");
         return 1;
     }

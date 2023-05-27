@@ -9,15 +9,20 @@ int main() {
     int switch_dev;
     int switch_state;
 	int fd;
+	char data;
 
     // 디바이스 파일을 엽니다.
     switch_dev = open(SWITCH_DEVICE, O_RDONLY);
 	fd = open(LED_DEVICE, O_RDWR);
 
-	if (switch_dev < 0 || fd < 0) {
+	if (switch_dev < 0) {
         perror("Failed to open the device");
         return 1;
     }
+	if (fd < 0) {
+		fprintf(stderr, "Can't open %s\n", LED_DEVICE);
+		return -1;
+	}
 
 	while(1){
     // 스위치의 상태를 읽습니다.
@@ -28,15 +33,13 @@ int main() {
 		
 		printf("The switch state is: %d\n", switch_state);
 		
-		char data;
 		if (switch_state) {
-			data = 10;
-			write(fd, &data, sizeof(char));
-		} else {
 			data = 1;
 			write(fd, &data, sizeof(char));
+		} else {
+			data = 10;
+			write(fd, &data, sizeof(char));
 		}
-		
 
 		sleep(1);
 	}
