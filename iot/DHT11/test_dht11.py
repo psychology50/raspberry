@@ -6,7 +6,7 @@ import Adafruit_DHT
 DHT_SENSOR = Adafruit_DHT.DHT11
 
 # 센서가 연결된 GPIO 핀을 지정합니다. 여기서는 4번 핀을 사용했습니다.
-DHT_PIN = 4
+DHT_PIN =5 
 
 while True:
     humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)

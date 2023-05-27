@@ -50,16 +50,18 @@ static int buzzer_release(struct inode *inode, struct file *file)
 static int buzzer_write(struct file *file, const char *buf, size_t length, loff_t *ofs)
 {
     unsigned int frequency;
-
+	
     if(copy_from_user(&frequency, buf, sizeof(frequency)))
         return -EFAULT;
 
     if (frequency == 0) {
         *(buzzer + 10) = (0x1 << GPIO_NUMBER); // 버저 끄기
     } else {
+		int i =0;
         unsigned int period = 1000000 / frequency; // 주기 계산 (마이크로초 단위)
         unsigned int half_period = period / 2; // 절반 주기 계산 (마이크로초 단위)
-
+		unsigned int duration = 3;
+        unsigned int iterations = duration * 1000 / period;
         while (1) {
             *(buzzer + 7) = (0x1 << GPIO_NUMBER); // 버저 켜기
             udelay(half_period); // 절반 주기 동안 대기
@@ -67,8 +69,9 @@ static int buzzer_write(struct file *file, const char *buf, size_t length, loff_
             *(buzzer + 10) = (0x1 << GPIO_NUMBER); // 버저 끄기
             udelay(half_period); // 절반 주기 동안 대기
 			
-			if(frequency == 0)
+			if(i == 3000)
 				break;
+			i++;
         }
     }
 

@@ -21,24 +21,14 @@ int main() {
     // 주파수 값을 디바이스에 쓰기 위해 state에 저장합니다.
     char state[sizeof(frequency)];
     memcpy(state, &frequency, sizeof(frequency));
-
+while(1){
     // 디바이스에 주파수 값을 씁니다.
     if (write(buzzer_dev, state, sizeof(state)) < 0) {
         perror("Failed to write the device");
         return 1;
     }
-
-    sleep(2); // 2초 동안 버저를 울립니다.
-
-    // 버저를 끕니다.
-    frequency = 0; // 주파수 값을 0으로 설정하여 끔
-    memcpy(state, &frequency, sizeof(frequency));
-    if (write(buzzer_dev, state, sizeof(state)) < 0) {
-        perror("Failed to write the device");
-        return 1;
-    }
-
-    // 디바이스 파일을 닫습니다.
+	sleep(2);
+}
     close(buzzer_dev);
 
     return 0;
