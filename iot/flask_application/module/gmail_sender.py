@@ -20,3 +20,16 @@ class GmailSender:
 			self.bcc_email = bcc_email
 			self.msg["Bcc"] = self.bcc_email
 		self.smtp = smtplib.SMTP(self.server_name, self.server_port)
+
+	def msg_set(self, msg_title, msg_body):
+		self.msg["Subject"] = msg_title
+		self.msg.set_content(msg_body)
+
+	def smtp_connect_send(self):
+		self.smtp.ehlo()
+		self.smtp.starttls()
+		self.smtp.login(self.s_email, self.pw)
+		self.smtp.send_message(self.msg)
+
+	def smtp_disconnect(self):
+		self.smtp.close()
