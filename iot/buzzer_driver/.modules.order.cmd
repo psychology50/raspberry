@@ -1,1 +1,1 @@
-cmd_/root/raspberry/iot/buzzer_driver/modules.order := {   echo /root/raspberry/iot/buzzer_driver/buzzer_driver.ko; :; } > /root/raspberry/iot/buzzer_driver/modules.order
+cmd_/root/raspberry/iot/test_buzzer/modules.order := {   echo /root/raspberry/iot/test_buzzer/buzzer_driver.ko; :; } > /root/raspberry/iot/test_buzzer/modules.order

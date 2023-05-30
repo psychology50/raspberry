@@ -1,1 +1,1 @@
-cmd_/root/raspberry/iot/buzzer_driver/buzzer_driver.ko := ld -r -EL -z noexecstack --build-id=sha1  -T scripts/module.lds -o /root/raspberry/iot/buzzer_driver/buzzer_driver.ko /root/raspberry/iot/buzzer_driver/buzzer_driver.o /root/raspberry/iot/buzzer_driver/buzzer_driver.mod.o;  true
+cmd_/root/raspberry/iot/test_buzzer/buzzer_driver.ko := ld -r -EL -z noexecstack --build-id=sha1  -T scripts/module.lds -o /root/raspberry/iot/test_buzzer/buzzer_driver.ko /root/raspberry/iot/test_buzzer/buzzer_driver.o /root/raspberry/iot/test_buzzer/buzzer_driver.mod.o;  true

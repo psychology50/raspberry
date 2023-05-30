@@ -36,8 +36,9 @@ __used __section("__versions") = {
 	{ 0x92997ed8, "_printk" },
 	{ 0x6bc3fbc0, "__unregister_chrdev" },
 	{ 0x1d37eeed, "ioremap" },
+	{ 0xe707d823, "__aeabi_uidiv" },
 	{ 0xae353d77, "arm_copy_from_user" },
-	{ 0x7682ba4e, "__copy_overflow" },
+	{ 0x8e865d3c, "arm_delay_ops" },
 	{ 0x3ea1b6e4, "__stack_chk_fail" },
 	{ 0x8f678b07, "__stack_chk_guard" },
 	{ 0x78a319e7, "module_layout" },
@@ -46,4 +47,4 @@ __used __section("__versions") = {
 MODULE_INFO(depends, "");
 
 
-MODULE_INFO(srcversion, "61DF742AFA99D0EE40D50B9");
+MODULE_INFO(srcversion, "0880ABBF2863471C1C7BAF9");

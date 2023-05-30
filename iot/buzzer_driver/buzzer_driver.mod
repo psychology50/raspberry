@@ -1,1 +1,1 @@
-/root/raspberry/iot/buzzer_driver/buzzer_driver.o
+/root/raspberry/iot/test_buzzer/buzzer_driver.o

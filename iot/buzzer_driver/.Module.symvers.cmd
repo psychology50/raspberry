@@ -1,1 +1,1 @@
-cmd_/root/raspberry/iot/buzzer_driver/Module.symvers :=  sed 's/ko$$/o/'  /root/raspberry/iot/buzzer_driver/modules.order | scripts/mod/modpost -m -a    -o /root/raspberry/iot/buzzer_driver/Module.symvers -e -i Module.symvers -T - 
+cmd_/root/raspberry/iot/test_buzzer/Module.symvers :=  sed 's/ko$$/o/'  /root/raspberry/iot/test_buzzer/modules.order | scripts/mod/modpost -m -a    -o /root/raspberry/iot/test_buzzer/Module.symvers -e -i Module.symvers -T - 
