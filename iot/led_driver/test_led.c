@@ -18,7 +18,15 @@ int main(int argc, char **argv)
     }
     while (1)
     {
+		data = 0x01;
+		write(fd, &data, sizeof(char));
+		sleep(1);
+
 		data = 0x02;
+		write(fd, &data, sizeof(char));
+		sleep(1);
+
+		data = 0x03;
 		write(fd, &data, sizeof(char));
 		sleep(1);
 

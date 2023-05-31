@@ -58,18 +58,14 @@ static int led_write(struct file* mfile, const char* gdata, size_t length, loff_
 	if (tmp_buf == 1)
 	{
 		*(led + 7) |= (0x1 << 22);
-		*(led + 10) = (0x1 << 17);
-		*(led + 10) = (0x1 << 27);
 	}
 	else if (tmp_buf == 2) {
-		*(led + 10) = (0x1 << 22);
-		*(led + 7) = (0x1 << 27);
-		*(led + 10) = (0x1 << 17);
+		*(led + 10) &= (0x1 << 22);
+		*(led + 7) |= (0x1 << 27);
 	}
 	else if (tmp_buf == 3) {
 		*(led + 7) |= (0x1 << 17);
-		*(led + 10) = (0x1 << 27);
-		*(led + 10) = (0x1 << 22);
+		*(led + 10) &= (0x1 << 27);
 	}
 	else
 	{

@@ -3,12 +3,30 @@ import board
 import adafruit_dht
 import threading
 import I2C_LCD_driver
+import os
 
 mylcd=I2C_LCD_driver.lcd()
 
 dhtDevice = adafruit_dht.DHT11(board.D5)
 dhtDevice2= adafruit_dht.DHT11(board.D6)
 
+led_file="/dev/led_driver"
+
+def led():
+    try:
+        fd = os.open(led_file, os.O_RDWR)
+        while True:
+            data = bytes([0x02])
+            os.write(fd, data)
+            time.sleep(1)
+            data = bytes([0x04])
+            os.write(fd, data)
+            time.sleep(1)
+    except OSError as e:
+        print(f"Error: {e}")
+    finally:
+        if fd:
+            os.close(fd)
 
 def LCD():
     while True:
@@ -65,3 +83,6 @@ thread2.start()
 
 thread_lcd = threading.Thread(target=LCD)
 thread_lcd.start()
+
+thread_led = threading.Thread(target=led)
+thread_led.start()

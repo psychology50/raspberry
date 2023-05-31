@@ -41,13 +41,18 @@ def home():
 	  </form>
 	  '''
 
-@app.route('/send-mail')
+@app.route('/send-mail', methods=['POST'])
 def send_mail():
-	recipients = get_recipients()
-	msg = Message('Hello', sender='qud1251@likelion.org', recipients=recipients)
-	msg.body = 'Hello Flask message sent from Flask-Mail'
-	mail.send(msg)
-	return 'send mail successfully!'
+	if request.method == 'POST':
+		spot = request.json.get('spot')
+		temperature = request.json.get('temperature')
+		humidity = request.json.get('humidity')
+		
+		recipients = get_recipients()
+		msg = Message('Run Away!', sender='qud1251@likelion.org', recipients=recipients)
+		msg.body = f"{spot}'s current temperature: {temperature}, humidity: {humidity}!! run away"
+		mail.send(msg)
+		return 'send mail successfully!'
 
 if __name__ == '__main__':
 	app.debug = False # for develop
