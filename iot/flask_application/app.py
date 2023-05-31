@@ -1,8 +1,5 @@
 from flask import Flask, request
 from flask_mail import Mail, Message
-import time
-import board
-import adafruit_dht
 
 app = Flask(__name__)
 
@@ -13,8 +10,6 @@ app.config['MAIL_PASSWORD'] = '26294624'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
-
-dhtDevice = adafruit_dht.DHT11(board.D5)
 
 def save_email(email):
 	with open('emails.txt', 'a') as file:
@@ -32,9 +27,9 @@ def home():
 		email = request.form.get('email')
 		if email:
 			save_email(email)
-			return 'Email saved successfully!'
+			return 'Email saved successfully!<br/><a href="/">return</a>'
 		else:
-			return 'Email is required.'
+			return 'Email is required.<br/><a href="/">return</a>'
 	return '''
 	  <form method="POST" action="/">
 		<label for="email">Email</label>
@@ -49,7 +44,7 @@ def send_mail():
 	msg = Message('Hello', sender='qud1251@likelion.org', recipients=recipients)
 	msg.body = 'Hello Flask message sent from Flask-Mail'
 	mail.send(msg)
-	return "send mail successfully!"
+	return 'send mail successfully!'
 
 if __name__ == '__main__':
 	app.debuf = True # for develop
